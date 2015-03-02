@@ -1,0 +1,63 @@
+<div class="container container-padding">
+
+    <article>
+        <h1>Hi,</h1>
+        <p>I've been created to help you to get comfortable with single page applications, as soon as possible.</p>
+
+        <p>I'm a Single Page Application myself, so you can use me as a living example in your investigations.</p>
+
+        <p>I'm also fully responsive, and you can view me through any device screen. The little problem is, that some
+            elder browsers, like IE8/7, don't know anything about HTML5/CSS3, so don't be surprised to multiple errors,
+            when trying to open me through them. But, I don't care of it (neither my creator did <b>;)</b> )
+        </p>
+
+        <b>Frameworks used: </b>
+
+        <ul>
+            <li><a href="http://jquery.com/">jQuery</a></li>
+            <li><a href="http://getbootstrap.com/">Twitter Bootstrap</a></li>
+            <li><a href="http://angularjs.org/">Angular JS</a></li>
+        </ul>
+
+        <section>
+            <h2>Ok, let's start</h2>
+
+            <p>Our application starts in <b>/index.html</b> document.</p>
+            <p>If you open it, you'll notice the following code sample:</p>
+
+            <div class="oms-example">
+                <span class="code">&lt;html lang="en" <b class="red">ng-app="oms"</b>&gt;</span>
+            </div>
+
+            <p><b class="red">ng-app</b> is a directive, which switches Angular JS framework ON. In our case, Angular JS will
+                be active within whole document, though we are free to put this directive to some definite portion of page.</p>
+            <p><b class="red">oms</b> is just a name of our module, which will be activated. You can find it, if open
+                <b>/app.js</b> file:</p>
+            <div class="oms-example">
+                <span class="code">angular.module(<b class="red">'oms'</b>, [])</span>
+            </div>
+
+            <p>If you look through the <p>/index.html</p> you'll notice, that there are only footer and header
+            there but no content.</p>
+            <p>That's because Angular JS have taken cared of it. All the content is represented with a single tag:</p>
+
+            <div class="oms-example">
+                <span class="code">&lt;div <b class="red">ng-view</b>&gt;&lt;/div&gt;</span>
+            </div>
+
+            <p><b class="red">ng-view</b> tells our module, that we will be displaying all our content within marked tags.</p>
+        </section>
+
+        <section>
+            <h2>I assume,</h2>
+            <p>that application, we are working at, is not limited by only home page,
+                so we need a way to switch our views within one page (don't forget, we are creating single page application)</p>
+            <p>In oder to learn, how to make it, I'll want to press the "Routing" button on my navigation panel, or just
+                use the <a href="#/routing">link</a></p>
+        </section>
+
+        <br>
+        <br>
+    </article>
+
+</div>

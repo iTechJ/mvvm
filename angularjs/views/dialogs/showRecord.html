@@ -1,0 +1,20 @@
+<div class="modal-header">
+    <button type="button" class="close" ng-click="close()">&times;</button>
+
+    <h4 class="modal-title">{{ chosen.name }}</h4>
+</div>
+<div class="modal-body">
+    <figure class="portrait">
+
+        <img ng-src="{{ chosen.image }}" />
+        <figcaption class="small-font">the photo of {{ chosen.name }}</figcaption>
+
+    </figure>
+    <br>
+
+    <p>{{ chosen.description }}</p>
+
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" ng-click="close()">OK</button>
+</div>

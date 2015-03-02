@@ -1,0 +1,2 @@
+app.HomeCtrl = function ($scope) {
+};

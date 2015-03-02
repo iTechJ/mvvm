@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<!-- angular js app declaration (note the "ng-app" attribute) -->
+<html lang="en" ng-app="oms">
+<head>
+
+    <!-- meta tag, for avoiding view scaling in mobile devices -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OMS helper</title>
+
+    <!-- bootstrap css rules -->
+    <link href="styles/bootstrap.min.css" rel="stylesheet" media="screen">
+    <!-- our custom defined css rules -->
+    <link href="styles/style.css" rel="stylesheet" media="screen">
+</head>
+<body>
+
+    <div class="container" id="wrap">
+        <!-- app header -->
+        <div class="navbar">
+            <div class="container">
+
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand font-blob" href="#/home">:<span class="red">i</span>techart helper</a>
+
+                <div class="nav-collapse collapse">
+                    <ul class="nav navbar-nav routing">
+                        <li active-link="active"><a href="#/home">Getting started</a></li>
+                        <li active-link="active"><a href="#/routing">Routing</a></li>
+                        <li active-link="active"><a href="#/controlling">UI Control</a></li>
+                        <li active-link="active"><a href="#/services">Services</a></li>
+                    </ul>
+
+                    <ul class="nav navbar-nav pull-right routing">
+                        <li><a href="http://docs.angularjs.org/tutorial">Angular official tutorial</a></li>
+                        <li id="docs"><a href="#/docs">Useful docs</a></li>
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- app body -->
+        <div ng-view></div>
+    </div>
+    <!-- app footer -->
+    <div id="footer" class="container">
+        <div class="container">
+            <p class="credit footer-line">Created by Anton Nekrasov</p>
+            <p class="credit footer-line">Updated by Aleksey Domorenok</p>
+        </div>
+    </div>
+
+    <!-- jquery,which is needed for bootstrap, to work correct -->
+    <script src="scripts/vendor/jquery-1.9.1.js"></script>
+    <!-- twitter bootstrap streamlines the layout development, and provides the classes for responsive design -->
+    <script src="scripts/vendor/bootstrap.min.js"></script>
+    <!-- angular js provides bindings and tools for creating spa -->
+    <script src="scripts/vendor/angular.js"></script>
+
+    <!-- application scripts (to be replaced with common build) -->
+
+    <!-- app -->
+    <script src="scripts/app.js"></script>
+    <!-- directives -->
+    <script src="scripts/directives/activeLink.js"></script>
+    <!-- controllers -->
+    <script src="scripts/controllers/homeController.js"></script>
+    <script src="scripts/controllers/routeController.js"></script>
+    <script src="scripts/controllers/serviceController.js"></script>
+    <script src="scripts/controllers/uiController.js"></script>
+    <script src="scripts/controllers/docsController.js"></script>
+    <script src="scripts/controllers/showRecordDialogController.js"></script>
+    <script src="scripts/controllers/editRecordDialogController.js"></script>
+    <!-- services -->
+    <script src="scripts/services/recordServices.js"></script>
+    <!-- angular resource, needed for implementing client REST services -->
+    <script src="scripts/vendor/angular-resource.js"></script>
+    <script src="scripts/vendor/angular-route.js"></script>
+    <!-- bootstrap ui -->
+    <script src="scripts/vendor/ui-bootstrap-0.12.0.js"></script>
+    <script src="scripts/vendor/ui-bootstrap-tpls-0.12.0.js"></script>
+
+</body>
+</html>

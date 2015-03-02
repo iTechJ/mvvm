@@ -1,0 +1,18 @@
+[
+    {
+        "id": "gosl",
+        "name": "James Gosling"
+    },
+    {
+        "id": "oder",
+        "name": "Martin Odersky"
+    },
+    {
+        "id": "eich",
+        "name": "Brendan Eich"
+    },
+    {
+        "id": "crock",
+        "name": "Douglas Crockford"
+    }
+]

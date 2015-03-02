@@ -1,0 +1,164 @@
+<div class="container container-padding">
+    <article>
+        <h1>Controller</h1>
+        <p>is a cornerstone of the application. It defines the behaviour of the appropriate view. Let's see an example:</p>
+
+        <!---->
+        <!---->
+        <!--CONTROLLER EXAMPLE-->
+        <!---->
+        <!---->
+
+        <div class="oms-example">
+            <ul class="list-group">
+                <li class="list-group-item oms-record" ng-repeat="record in records" ng-click="editRecord(record)">
+                    {{record.name}}
+                    <span class="small-font">
+                        ({{record.description}})
+                    </span>
+                </li>
+            </ul>
+        </div>
+
+        <!---->
+        <!---->
+        <!--CONTROLLER EXAMPLE-->
+        <!---->
+        <!---->
+
+        <p>Let's open <b>scripts/controllers/uiController.js</b> file, and investigate it:</p>
+
+        <div class="oms-example">
+            <div class="code">
+                <p><b class="red">app.UIController</b> = function (<b class="red">$scope, $modal</b>) {</p>
+                <br>
+                <p class="one-indent"><b class="red">$scope.records</b> = [{<b class="grey"> ... </b>}];</p>
+                <p class="one-indent"><b class="red">$scope.editRecord</b> = function(record) {</p>
+                <p class="three-indent"><b class="red">var temp = {};</b></p>
+                <p class="three-indent">temp.name = record.name;</p>
+                <p class="three-indent">temp.description = record.description;</p>
+                <br>
+                <p class="three-indent"><b class="red">var modalInstance = $modal.open</b>({</p>
+                <p class="four-indent">templateUrl: 'views/dialogs/editRecord.html',</p>
+                <p class="four-indent">controller: app.editRecordDialogCtrl,</p>
+                <p class="four-indent">resolve: { record : function() { return temp; } }</p>
+                <p class="three-indent"> });</p>
+                <br>
+                <p class="three-indent"><b class="red">modalInstance.result.then(function (result) {</b></p>
+                <p class="four-indent">if (result) {</p>
+                <p class="five-indent"><b class="red">record.name = result.name;</b></p>
+                <p class="five-indent"><b class="red">record.description = result.description;</b></p>
+                <p class="four-indent">}</p>
+                <p class="three-indent">}, function() {});</p>
+                <p class="one-indent">};</p>
+                <p>};</p>
+            </div>
+        </div>
+
+        <p>All the data, used in <b>/views/controlling.html</b> template, attached to the scope <b class="red">($scope)</b>
+            that was injected into our controller function.</p>
+
+        <p>To use some service in angular, you simply declare the name of the dependency you need as arguments
+            to the controller's constructor function, as follows:</p>
+
+        <div class="oms-example">
+        <span class="code">
+            app.UIController = function (<b class="red">$scope, $http</b>) { <b class="grey">...</b> }
+        </span>
+        </div>
+
+        <p class="bold-font">Note that the names of arguments are significant, because the injector uses these to
+            look up the dependencies.</p>
+
+        <p>The controller scope is a prototypical descendant of the root scope that was created when the application
+            bootstrapped. This controller scope is available to all bindings located within our template.</p>
+
+        <p>If you don't want your data to be visible in template, you just declare it as local variable
+            (e.g. <b class="red">var edited;</b>)</p>
+
+        <h2>In order to bind your data to template</h2>
+        <p>You just put the Angular directive (e.g. <b class="red">ng-repeat</b>) with the appropriate property of the
+            <b class="red">$scope</b> (e.g. <b class="red">records</b>) into the tag:</p>
+
+        <div class="oms-example">
+            <div class="code">&lt;li <b class="red">ng-repeat="record in records" ng-click="editRecord(record)"&gt;</b></div>
+            <div class="code" class="one-indent">{{<b class="red">record.name</b>}}</div>
+            <div class="code" class="one-indent">&lt;span class="small-font"&gt;</div>
+            <div class="code" class="three-indent">({{<b class="red">record.description</b>}})</div>
+            <div class="code" class="one-indent">&lt;/span&gt;</div>
+            <div class="code">&lt;/li&gt;</div>
+        </div>
+
+        <p>This code sample shows the collection of records from $scope ( see <b>/controllers/uiController.js >
+            <span class="red">$scope.records</span>).</b></p>
+
+        <p>Each element of the list is clickable: clicking on the tag will call the <b class="red">$scope.editRecord</b>
+            method, and pass the appropriate record, as an argument</p>
+
+        <p>The <b class="red">editRecord</b> function saves the link on currently editing record
+            (<b class="red">edited = record;</b>), sets the values of name and description inputs, and then opens
+            dialog:
+        </p>
+
+        <div class="oms-example">
+            <div class="code">
+                <p>$scope.editRecord = function(record) {</p>
+                <p class="one-indent">edited = record;</p>
+                <p class="one-indent">$name.val(record.name);</p>
+                <p class="one-indent">$description.val(record.description);</p>
+                <p class="one-indent">$details.modal('show');</p>
+                <p>};</p>
+            </div>
+        </div>
+
+        <h2>After editing record</h2>
+        <p>and saving it, you'll see, that list of records has changed too.</p>
+        <p>Let's see, how did we do it:</p>
+
+        <div class="oms-example">
+            <div class="code">
+            <p>$scope.saveChanges = function() {</p>
+            <p class="one-indent">edited.name = $name.val();</p>
+            <p class="one-indent">edited.description = $description.val();</p>
+            <p class="one-indent">$details.modal('hide');</p>
+            <p>}</p>
+            </div>
+        </div>
+
+        <p>We just have set the values of the editing record. We did not touch the html template!
+            Angular have made everything for us. This feature is called &quote;Data-binding&quote;</p>
+        <p>When the page loads, Angular binds the name of the input box to a variable of the same name in the
+            data model and keeps the two in sync. That means, that you can edit your html, and it will automatically
+            change your javascript object and vice versa.</p>
+
+        <h2>The last thing,</h2>
+        <p>I'd like to point out here is modularity</p>
+        <p>As you have seen, we declare our controller, like this:</p>
+
+        <div class="oms-example">
+            <div class="code">
+                <b class="red">app.</b>UIController = function ($scope) { <b class="grey">...</b> }
+            </div>
+        </div>
+
+        <p>To tell the truth, we could use the simpler way:</p>
+
+        <div class="oms-example">
+            <div class="code">
+                function UIController ($scope) { <b class="grey">...</b> }
+            </div>
+        </div>
+
+        <p>But in this case, this function will be added to global object
+            (object <b class="red">window</b> in our case). Actually, this is not very critical,
+            but clocking global object is a bad practice.</p>
+
+        <p>To avoid this problem, we just create <b class="red">app</b> object, somewhere in the code
+            (see <b>scripts/app.js</b>), and then put all the modules there.</p>
+
+        <h2>So far</h2>
+        <p>we were using hardcoded collections, which are not very useful in real projects. So, the next step
+        will be learning <a href="#/services">services</a></p>
+
+    </article>
+</div>

@@ -1,0 +1,149 @@
+<div class="container container-padding">
+    <article>
+
+        <h1>Http services</h1>
+
+        <p>provide us the ability to make XHR requests for data and interact with RESTful server-side data sources.
+            Let's see an example:</p>
+
+        <!---->
+        <!---->
+        <!--SERVICE EXAMPLE-->
+        <!---->
+        <!---->
+
+        <div class="oms-example">
+            <ul class="list-group" data-bind="foreach : $root.chosenVM().records">
+                <li class="list-group-item oms-record" data-bind="text : name, click: $root.chosenVM().showModal">
+                    <span></span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Modal -->
+
+        <div class="modal fade" id="info">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close"
+                                data-dismiss="modal"
+                                aria-hidden="true">&times;</button>
+
+                        <h4 class="modal-title" data-bind="text : $root.chosenVM().chosen().name"></h4>
+                    </div>
+                    <div class="modal-body">
+                        <figure class="portrait">
+
+                            <img data-bind="attr: { src: $root.chosenVM().chosen().image }" />
+                            <figcaption style="font-size: 80%; font-style: italic;">the photo of <span data-bind="text : $root.chosenVM().chosen().name"></span></figcaption>
+
+                        </figure>
+                        <br>
+
+                        <p data-bind="text : $root.chosenVM().chosen().description"></p>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+        <!---->
+        <!---->
+        <!--SERVICE EXAMPLE-->
+        <!---->
+        <!---->
+
+        <p>If you open your debugger, you'll note, that list of data was loaded through XHR request:</p>
+        <div class="xhr-request-img">
+            <img src="images/request.png" alt="debugger">
+        </div>
+
+        <section>
+            <h2>Let's see, how does it work.</h2>
+            <p>First of all we need to add angular-resource.js file to our application</p>
+
+            <p>Our service is defined in <b>scripts/services/recordServices.js</b>:</p>
+
+            <div class="oms-example">
+                <div class="code">
+                    <p>angular.module(<b class="red">"recordServices"</b>, [<b class="red">&quot;ngResource&quot;</b>]).</p>
+                    <p class="one-indent">factory(&quot;Record&quot;, function($resource) {</p>
+                    <p class="three-indent">return $resource(<b class="red">&quot;data/:id.json&quot;</b>, {}, {</p>
+                    <p class="five-indent">
+                        <b class="red">
+                            getAll: {method: &quot;GET&quot;, params: {id: &quot;all&quot;}, isArray: true}
+                        </b>
+                    </p>
+                    <p class="one-indent">});</p>
+                    <p>});</p>
+                </div>
+            </div>
+
+            <p>Note, that used the module API to register a custom service. We passed in
+                the name of the service - <b class="red">&quot;Record&quot;</b> - and the factory function.</p>
+            <p>The <b class="red">Record</b> service declared a dependency on the $resource service.</p>
+            <p>We have also declared method <b class="red">getAll</b>, which will return us all the available records.</p>
+            <p>There are a number of predefined methods, which are available by default:</p>
+
+            <div class="oms-example">
+                <div class="code">
+                    <p>{</p>
+                    <p class="one-indent">&quot;get&quot;:    {method:&quot;GET&quot;},</p>
+                    <p class="one-indent">&quot;save&quot;:   {method:&quot;POST&quot;},</p>
+                    <p class="one-indent">&quot;query&quot;:  {method:&quot;GET&quot;, isArray:true},</p>
+                    <p class="one-indent">&quot;remove&quot;: {method:&quot;DELETE&quot;},</p>
+                    <p class="one-indent">&quot;delete&quot;: {method:&quot;DELETE&quot;}</p>
+                    <p>};</p>
+                </div>
+            </div>
+
+        </section>
+
+        <section>
+            <h2>Now</h2>
+            <p>we have a finished service and ready to use it.</p>
+            <p>First of all, don't forget to add our service module to the application (see <b>/scripts/app.js</b>):</p>
+
+            <div class="oms-example">
+                <div class="code">angular.module(&quot;oms&quot;, [<b class="red">&quot;recordServices&quot;</b>])</div>
+            </div>
+
+            <p>Then you just put the service name to your controller, as a parameter, and Angular will
+                inject it for you:</p>
+
+            <div class="oms-example">
+                <div class="code">
+                    <p>app.ServiceController = function ($scope, <b class="red">Record</b>) {</p>
+                    <p class="one-indent" class="grey">...</p>
+                    <p class="one-indent">$scope.records = <b class="red">Record.getAll();</b></p>
+                    <p class="one-indent">$scope.showRecord = function (id) {</p>
+                    <p class="three-indent"><b class="red">Record.get({id: id}, function(result) {</b></p>
+                    <p class="five-indent">$scope.chosen = result;</p>
+                    <p class="five-indent">$(&quot;#info&quot;).modal(&quot;show&quot;);</p>
+                    <p class="three-indent">});</p>
+                    <p class="one-indent">}</p>
+                    <p>};</p>
+                </div>
+            </div>
+
+            <p>Here we used our service twice: first time we called our predefined method <b class="red">getAll</b>
+                in order to get the list of records, and then we used default method <b class="red">get</b>,
+                in order to obtain the details</p>
+
+        </section>
+
+        <section>
+            <h2></h2>
+            <p>Now you know the basis, needed to start working on your application. As a next step, you can start
+                working with the <a href="http://docs.angularjs.org/tutorial">official tutorial</a>. Despite the fact,
+                that you'll find a lot of things to be familiar for you, there are a lot of things,
+                which we haven't covered in our tutorial.</p>
+            <p>You can also refer to <a href="#/docs">Useful docs</a> section for additional information.</p>
+        </section>
+
+    </article>
+</div>

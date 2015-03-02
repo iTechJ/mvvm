@@ -1,0 +1,2 @@
+app.DocsCtrl = function ($scope) {
+};
