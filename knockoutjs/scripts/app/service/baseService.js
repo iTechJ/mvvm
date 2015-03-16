@@ -9,7 +9,6 @@ define([], function() {
             jQuery.ajax({
                 url: url,
                 method: method,
-                //async: false,
                 data: data
             }).done(function(s) {
                 if(success) {

@@ -9,6 +9,17 @@ define(['service/recordService',
         self.records = ko.observableArray([]);
         self.chosen = ko.observable(new RecordDetails());
 
+        recordService.list(
+            new Callback(
+                function(params){
+                    var reply = params.reply;
+                    for (var i in reply) {
+                        this.records().push(new Record(reply[i].id, reply[i].name));
+                    }
+                }, self, {}
+            )
+        );
+
         self.showModal = function(record) {
             recordService.get(
                 record.id,
@@ -22,21 +33,6 @@ define(['service/recordService',
             );
 
         };
-
-        self.init = function() {
-            recordService.list(
-                new Callback(
-                    function(params){
-                        var reply = params.reply;
-                        for (var i in reply) {
-                            this.records().push(new Record(reply[i].id, reply[i].name));
-                        }
-                    }, self, {}
-                )
-            );
-        };
-
-        //self.init();
 
         return {
             records : self.records,

@@ -33,7 +33,7 @@ define(['model/record'], function(Record) {
         for (var i in self.tempRecords) {
             var rec = self.tempRecords[i];
             self.records().push(new Record(rec.id, rec.name, rec.description));
-        }
+        };
 
         self.showModal = function(record) {
             self.editedId = record.id;

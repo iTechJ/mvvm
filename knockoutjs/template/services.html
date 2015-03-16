@@ -13,8 +13,8 @@
         <!---->
 
         <div class="oms-example">
-            <ul class="list-group" data-bind="foreach : $root.chosenVM().records">
-                <li class="list-group-item oms-record" data-bind="text : name, click: $root.chosenVM().showModal">
+            <ul class="list-group" data-bind="foreach : $root.servicesVM.records">
+                <li class="list-group-item oms-record" data-bind="text : name, click: $root.servicesVM.showModal">
                     <span></span>
                 </li>
             </ul>
@@ -30,18 +30,18 @@
                                 data-dismiss="modal"
                                 aria-hidden="true">&times;</button>
 
-                        <h4 class="modal-title" data-bind="text : $root.chosenVM().chosen().name"></h4>
+                        <h4 class="modal-title" data-bind="text : $root.servicesVM.chosen().name"></h4>
                     </div>
                     <div class="modal-body">
                         <figure class="portrait">
 
-                            <img data-bind="attr: { src: $root.chosenVM().chosen().image }" />
-                            <figcaption style="font-size: 80%; font-style: italic;">the photo of <span data-bind="text : $root.chosenVM().chosen().name"></span></figcaption>
+                            <img data-bind="attr: { src: $root.servicesVM.chosen().image }" />
+                            <figcaption style="font-size: 80%; font-style: italic;">the photo of <span data-bind="text : $root.servicesVM.chosen().name"></span></figcaption>
 
                         </figure>
                         <br>
 
-                        <p data-bind="text : $root.chosenVM().chosen().description"></p>
+                        <p data-bind="text : $root.servicesVM.chosen().description"></p>
 
                     </div>
                     <div class="modal-footer">

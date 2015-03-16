@@ -3,40 +3,39 @@ define(['modelView/homeViewModel',
         'modelView/controllingViewModel',
         'modelView/servicesViewModel',
         'modelView/docsViewModel'
-], function(homeMV, routingMV, controllingMV, servicesMV, docsMV) {
+], function(homeVM, routingVM, controllingVM, servicesVM, docsVM) {
 
     var app = {};
 
-    app['home'] = homeMV;
-    app['routing'] = routingMV;
-    app['controlling'] = controllingMV;
-    app['services'] = servicesMV;
-    app['docs'] = docsMV;
+    app['home'] = homeVM;
+    app['routing'] = routingVM;
+    app['controlling'] = controllingVM;
+    app['services'] = servicesVM;
+    app['docs'] = docsVM;
 
     function MainViewModel() {
-        infuser.defaults.templateUrl = "template";
-
         // Data
         var parentSelf = this;
         parentSelf.view = 'home';
-        parentSelf.chosenVM = ko.observable(new app[parentSelf.view]());
         parentSelf.chosenView = ko.observable(parentSelf.view);
+
+        parentSelf.homeVM = new homeVM();
+        parentSelf.routingVM = new routingVM();
+        parentSelf.controllingVM = new controllingVM();
+        parentSelf.servicesVM = new servicesVM();
+        parentSelf.docsVM = new docsVM();
 
         // Client-side routes
         Sammy(function () {
             this.get('#:view', function () {
                 parentSelf.view = this.params.view;
-
-                var mv = new app[parentSelf.view]();
-
-                if (mv.init) {
-                    mv.init();
-                }
-
-                parentSelf.chosenVM = ko.observable(mv);
                 parentSelf.chosenView(parentSelf.view);
             });
         }).run('#home');
+
+        parentSelf.showTemplate = function(name) {
+            return parentSelf.chosenView() == name;
+        };
     };
 
     var launch = function() {

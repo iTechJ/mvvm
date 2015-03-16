@@ -43,7 +43,11 @@
         </div>
 
         <!-- app body -->
-        <div data-bind="template: { name : $root.chosenView() }"></div>
+        <div id="content" data-bind="template: { name : 'home', templateUrl: 'template' }, visible : showTemplate('home')"></div>
+        <div id="content" data-bind="template: { name : 'routing', templateUrl: 'template' }, visible : showTemplate('routing')"></div>
+        <div id="content" data-bind="template: { name : 'controlling', templateUrl: 'template' }, visible : showTemplate('controlling')"></div>
+        <div id="content" data-bind="template: { name : 'services', templateUrl: 'template' }, visible : showTemplate('services')"></div>
+        <div id="content" data-bind="template: { name : 'docs', templateUrl: 'template' }, visible : showTemplate('docs')"></div>
 
     </div>
     <!-- app footer -->

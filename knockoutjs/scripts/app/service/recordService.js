@@ -2,14 +2,15 @@ define(["service/baseService"], function(baseService) {
     function RecordService(){
         var self = this;
 
-        self.list = function(success, error, done) {
+        self.list = function(success, error, done, async) {
             baseService.send(
                 "data/all.json",
                 "GET",
                 {},
                 success,
                 error,
-                done
+                done, 
+                async
             );
         };
 
