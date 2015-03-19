@@ -1,50 +1,51 @@
 <div class="container container-padding">
 
     <article>
-        <h1>Routes</h1>
-        <p>You are still on the same page.</p>
-        <p>Yes, the view has changed, you see new text... But there wasn't any server call to get new page, no traffic was
-            spent to load it. Javascript (in our case Angular JS) has produced new view itself.</p>
+        <h1>Маршрутизация</h1>
+        <p>Вы все еще находитесь на той-же страрнице</p>
+        <p>Да, внешний вид страницы изменился, вы видете новый текст... Но там небыло никаких обращений к серверу, чтобы получить страницу,
+            небыло потрачино трафика, чтобы загрузить ее. Javascript (в нашем случаи Angular JS) изменил вид сам.</p>
 
         <section>
-            <h2>Let's find out, how does it work</h2>
+            <h2>Давайте выяснить, как это работает</h2>
 
-            <p>First of all you'll want to take a look at buttons, we are using for navigation (<b>see /index.html</b>):</p>
+            <p>В первую очередь вы захотите посмотреть на кнопки, которые мы используем для навигации (<b>смотрите /index.html</b>):</p>
 
-            <div class="oms-example">
-                <div class="code">&lt;li active-link="active"&gt;&lt;a href="<b class="red">#/home</b>"&gt;Getting started&gt;&lt;/a&gt;&lt;/li&gt;</div>
-                <div class="code">&lt;li active-link="active"&gt;&lt;a href="<b class="red">#/routing</b>"&gt;Routing&lt;/a&gt;&lt;/li&gt;</div>
-                <div class="code">&lt;li active-link="active"&gt;&lt;a href="<b class="red">#/controlling</b>"&gt;UI Control&lt;/a&gt;&lt;/li&gt;</div>
-                <div class="code">&lt;li active-link="active"&gt;&lt;a href="<b class="red">#/services</b>"&gt;Services&lt;/a&gt;&lt;/li&gt;</div>
+            <div class="code-example">
+                <div class="code">&lt;li active-link="active"&gt;&lt;a href="<b class="red">#/home</b>"&gt;Приступаем к работе&lt;/a&gt;&lt;/li&gt;</div>
+                <div class="code">&lt;li active-link="active"&gt;&lt;a href="<b class="red">#/routing</b>"&gt;Маршрутизация&lt;/a&gt;&lt;/li&gt;</div>
+                <div class="code">&lt;li active-link="active"&gt;&lt;a href="<b class="red">#/controlling</b>"&gt;Управление интерфейсом&lt;/a&gt;&lt;/li&gt;</div>
+                <div class="code">&lt;li active-link="active"&gt;&lt;a href="<b class="red">#/services</b>"&gt;Сервисы&lt;/a&gt;&lt;/li&gt;</div>
             </div>
 
-            Note the anchor URLs, used in links.
+            Обратите анимание на URL-адреса, используемые в ссылках.
 
-            <p>Then, if you open <b>scripts/app.js</b>, you'll see the routing provider, which manages all the routing,
-                including history implementation:</p>
+            <p>Если вы откроете <b>scripts/app.js</b>, вы увидите routing provider, который управляет маршрутизацияй всего
+                приложения, и включает в себя реализацию истории:</p>
 
-            <div class="oms-example">
+            <div class="code-example">
                 <p>$routeProvider.</p>
                 <p class="one-indent">when(<b class="red">"/home"</b>,
-                    {templateUrl: <b class="red">"views/home.html"</b>, controller: app.HomeController }).</p>
+                    {templateUrl: <b class="red">"views/home.html"</b>, controller: app.HomeCtrl}).</p>
                 <p class="one-indent">when(<b class="red">"/routing"</b>,
-                    {templateUrl: <b class="red">"views/route.html"</b>,   controller: app.RouteController}).</p>
+                    {templateUrl: <b class="red">"views/route.html"</b>, controller: app.RouteCtrl}).</p>
                 <p class="one-indent">when(<b class="red">"/services"</b>,
-                    {templateUrl: <b class="red">"views/service.html"</b>,   controller: app.ServiceController}).</p>
+                    {templateUrl: <b class="red">"views/service.html"</b>, controller: app.ServiceCtrl}).</p>
                 <p class="one-indent">when(<b class="red">"/controlling"</b>,
-                    {templateUrl: <b class="red">"views/controlling.html"</b>,   controller: app.UIController}).</p>
+                    {templateUrl: <b class="red">"views/controlling.html"</b>, controller: app.UICtrl}).</p>
                 <p class="one-indent">when(<b class="red">"/docs"</b>,
-                    {templateUrl: <b class="red">"views/supplementary/docs.html"</b>,   controller: app.DocsController}).</p>
+                    {templateUrl: <b class="red">"views/supplementary/docs.html"</b>, controller: app.DocsCtrl}).</p>
                 <p class="one-indent">otherwise({redirectTo: <b class="red">"/home"</b>});</p>
             </div>
 
-            <p>The mechanism is simple - Angular JS uses pattern matching to find out which template should be put to app body.</p>
-            <p>You will also note controllers, which are added to an appropriate template (e.g. home.html has app.HomeController)</p>
+            <p>Механизм простой - Angular JS использует pattern matching чтобы определить, какой щпблон должен быть подставлен в приложение.</p>
+            <p>Так-же вы можете увидеть контроллеры, который будут добавлены, в соответствии с каждым шаблоном (например home.html обрабатывается app.HomeCtrl)</p>
         </section>
 
         <section>
-            <h2>Now</h2>
-            <p>we know, how to create routing in Single Page Application. Let's find out, how we can implement <a href="#/controlling">interaction</a> </p>
+            <h2>Теперь</h2>
+            <p>мы знаем, как настроить маршрутизацию в одностраничные приложения. Давайте выясним, как мы можем реализовать
+                взаимодействие <a href="#/controlling">контроллера</a> со страницой </p>
         </section>
 
     </article>

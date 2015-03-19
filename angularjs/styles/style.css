@@ -30,7 +30,7 @@ body {
         padding-right: 20px;
     }
 
-    .oms-example {
+    .code-example {
         margin-left: 0;
         margin-right: 0;
         background-color: #fff;
@@ -41,7 +41,7 @@ body {
     }
 }
 
-.oms-example {
+.code-example {
     position: relative;
     padding: 15px 15px 15px;
     /*margin: 0 -15px -1px;*/

@@ -1,59 +1,59 @@
 <div class="container container-padding">
 
     <article>
-        <h1>Hi,</h1>
-        <p>I've been created to help you to get comfortable with single page applications, as soon as possible.</p>
+        <h1>Привет!</h1>
+        <p>Я был создан, чтобы помоч Вам c комфортом освоить реализацию одностраничных приложений.</p>
 
-        <p>I'm a Single Page Application myself, so you can use me as a living example in your investigations.</p>
+        <p>Я одностраничное приложение, так что вы можете использовать меня как живой пример в своих исследованиях.</p>
 
-        <p>I'm also fully responsive, and you can view me through any device screen. The little problem is, that some
-            elder browsers, like IE8/7, don't know anything about HTML5/CSS3, so don't be surprised to multiple errors,
-            when trying to open me through them. But, I don't care of it (neither my creator did <b>;)</b> )
+        <p>Я полностью адаптивный, и вы можете смотреть на меня через экран любого устройства. Правда есть маленькая
+            проблема, некоторые старые браузеры, такие как IE7/8, которые ничего не знают о HTML5/CSS3, поэтому не
+            удевляйтесь, когда увидете несколько ошибок, когда попытаетесь открыть меня через них.
+            Но меня это не слишком волнует (как в принципе, и моего создателя <b>;)</b> )
         </p>
 
-        <b>Frameworks used: </b>
+        <b>Используемые frameworks: </b>
 
         <ul>
-            <li><a href="http://jquery.com/">jQuery</a></li>
-            <li><a href="http://getbootstrap.com/">Twitter Bootstrap</a></li>
-            <li><a href="http://angularjs.org/">Angular JS</a></li>
+            <li><a href="http://jquery.com/" target="_blank">jQuery</a></li>
+            <li><a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a></li>
+            <li><a href="http://angularjs.org/" target="_blank">Angular JS</a></li>
         </ul>
 
         <section>
-            <h2>Ok, let's start</h2>
+            <h2>Ну что, давайте начнем</h2>
 
-            <p>Our application starts in <b>/index.html</b> document.</p>
-            <p>If you open it, you'll notice the following code sample:</p>
+            <p>Наше приложение запускается в <b>/index.html</b> в документе.</p>
+            <p>Если вы откроете его, вы увидите следующий код:</p>
 
-            <div class="oms-example">
-                <span class="code">&lt;html lang="en" <b class="red">ng-app="oms"</b>&gt;</span>
+            <div class="code-example">
+                <span class="code">&lt;html lang="en" <b class="red">ng-app="angular-example"</b>&gt;</span>
             </div>
 
-            <p><b class="red">ng-app</b> is a directive, which switches Angular JS framework ON. In our case, Angular JS will
-                be active within whole document, though we are free to put this directive to some definite portion of page.</p>
-            <p><b class="red">oms</b> is just a name of our module, which will be activated. You can find it, if open
-                <b>/app.js</b> file:</p>
-            <div class="oms-example">
-                <span class="code">angular.module(<b class="red">'oms'</b>, [])</span>
+            <p><b class="red">ng-app</b> это директива запускает Angular JS. В нашем случае Angular JS будет активен в
+                пределах всей страницы, хотя мы можем указать эту дерективу и к части страницы</p>
+            <p><b class="red">angular-example</b> это просто название нашего модуля, который будет активирован. Вы можете
+                найти его, если откроете <b>/app.js</b> файл:</p>
+            <div class="code-example">
+                <span class="code">angular.module(<b class="red">'angular-example'</b>, [])</span>
             </div>
 
-            <p>If you look through the <p>/index.html</p> you'll notice, that there are only footer and header
-            there but no content.</p>
-            <p>That's because Angular JS have taken cared of it. All the content is represented with a single tag:</p>
+            <p>Если вы посмотрите в <b>/index.html</b> Вы заметите, что есть только футер и хедер, но нет содержания.</p>
+            <p>Это потому-что Angular JS берет всю ответственность за него на себя. Весь контент приложения представлен всего одним тегом:</p>
 
-            <div class="oms-example">
+            <div class="code-example">
                 <span class="code">&lt;div <b class="red">ng-view</b>&gt;&lt;/div&gt;</span>
             </div>
 
-            <p><b class="red">ng-view</b> tells our module, that we will be displaying all our content within marked tags.</p>
+            <p><b class="red">ng-view</b> говорит нашему модулю, что весь контент будет отображатся в пределах этого тега.</p>
         </section>
 
         <section>
-            <h2>I assume,</h2>
-            <p>that application, we are working at, is not limited by only home page,
-                so we need a way to switch our views within one page (don't forget, we are creating single page application)</p>
-            <p>In oder to learn, how to make it, I'll want to press the "Routing" button on my navigation panel, or just
-                use the <a href="#/routing">link</a></p>
+            <h2>Я полагаю,</h2>
+            <p>это приложение не ограничевается только главной страницой, поэтому нам нужен способ для переключения наших views,
+                в пределах одной страницы (не забывайте, мы создаем одностраничное приложение)</p>
+            <p>Для того, чтобы узнать, как сделать это нажмитк на кнопку "Маршрутизация" на моей панели навигации,
+                или просто воспользуйтесь <a href="#/routing">ссылкой</a></p>
         </section>
 
         <br>

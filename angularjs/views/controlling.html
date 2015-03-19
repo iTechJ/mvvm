@@ -1,7 +1,7 @@
 <div class="container container-padding">
     <article>
-        <h1>Controller</h1>
-        <p>is a cornerstone of the application. It defines the behaviour of the appropriate view. Let's see an example:</p>
+        <h1>Контроллер</h1>
+        <p>является краеугольным камнем приложения. Он описывает поведение соответствующего представления. Давайте посмотрим пример:</p>
 
         <!---->
         <!---->
@@ -9,7 +9,7 @@
         <!---->
         <!---->
 
-        <div class="oms-example">
+        <div class="code-example">
             <ul class="list-group">
                 <li class="list-group-item oms-record" ng-repeat="record in records" ng-click="editRecord(record)">
                     {{record.name}}
@@ -26,11 +26,11 @@
         <!---->
         <!---->
 
-        <p>Let's open <b>scripts/controllers/uiController.js</b> file, and investigate it:</p>
+        <p>Давайте откроем <b>scripts/controllers/uiController.js</b> файл, и посмотрим на него:</p>
 
-        <div class="oms-example">
+        <div class="code-example">
             <div class="code">
-                <p><b class="red">app.UIController</b> = function (<b class="red">$scope, $modal</b>) {</p>
+                <p><b class="red">app.UICtrl</b> = function (<b class="red">$scope, $modal</b>) {</p>
                 <br>
                 <p class="one-indent"><b class="red">$scope.records</b> = [{<b class="grey"> ... </b>}];</p>
                 <p class="one-indent"><b class="red">$scope.editRecord</b> = function(record) {</p>
@@ -55,110 +55,141 @@
             </div>
         </div>
 
-        <p>All the data, used in <b>/views/controlling.html</b> template, attached to the scope <b class="red">($scope)</b>
-            that was injected into our controller function.</p>
+        <p>Все данные, используемые в <b>/views/controlling.html</b> шаблоне, прикреплены к облости видимости <b class="red">($scope)</b>
+            которая была внедрена в функцию контроллера.</p>
 
-        <p>To use some service in angular, you simply declare the name of the dependency you need as arguments
-            to the controller's constructor function, as follows:</p>
+        <p>Чтобы использовать некоторые сервисы ангулара достаточно просто указать его имя в аргументах функции-контроллера, например:</p>
 
-        <div class="oms-example">
-        <span class="code">
-            app.UIController = function (<b class="red">$scope, $http</b>) { <b class="grey">...</b> }
-        </span>
+        <div class="code-example">
+            <span class="code">
+                app.UICtrl = function (<b class="red">$scope, $http</b>) { <b class="grey">...</b> }
+            </span>
         </div>
 
-        <p class="bold-font">Note that the names of arguments are significant, because the injector uses these to
-            look up the dependencies.</p>
+        <p class="bold-font">Обратите внимание на название агрументов, это важно, потому-что инжектор по имени определяет зависимости.</p>
 
-        <p>The controller scope is a prototypical descendant of the root scope that was created when the application
-            bootstrapped. This controller scope is available to all bindings located within our template.</p>
+        <p>Область видимости(scope) контроллера - это прототипичный наслденик корневой области видимости(root scope), который
+            создаётся при запуске приложенияю. Этот скоуп контроллера привязан к нашему шаблону.</p>
 
-        <p>If you don't want your data to be visible in template, you just declare it as local variable
-            (e.g. <b class="red">var edited;</b>)</p>
+        <p>Если Вы не хотите, чтобы ваши данные были видны в шаблон, то вы просто объявляете их как локальную переменную
+            (например <b class="red">var edited;</b>)</p>
 
-        <h2>In order to bind your data to template</h2>
-        <p>You just put the Angular directive (e.g. <b class="red">ng-repeat</b>) with the appropriate property of the
-            <b class="red">$scope</b> (e.g. <b class="red">records</b>) into the tag:</p>
+        <h2>Связь данных с шаблоном</h2>
+        <p>Для связи данных с шаблоном используются дерективы (например <b class="red">ng-repeat</b>) с соответствующими свойствами из области видимости
+            <b class="red">$scope</b> (например <b class="red">records</b>) которые достаточно просто прописать в тэге:</p>
 
-        <div class="oms-example">
+        <div class="code-example">
             <div class="code">&lt;li <b class="red">ng-repeat="record in records" ng-click="editRecord(record)"&gt;</b></div>
-            <div class="code" class="one-indent">{{<b class="red">record.name</b>}}</div>
-            <div class="code" class="one-indent">&lt;span class="small-font"&gt;</div>
-            <div class="code" class="three-indent">({{<b class="red">record.description</b>}})</div>
-            <div class="code" class="one-indent">&lt;/span&gt;</div>
+            <div class="code one-indent">{{<b class="red">record.name</b>}}</div>
+            <div class="code one-indent">&lt;span class="small-font"&gt;</div>
+            <div class="code two-indent">({{<b class="red">record.description</b>}})</div>
+            <div class="code one-indent">&lt;/span&gt;</div>
             <div class="code">&lt;/li&gt;</div>
         </div>
 
-        <p>This code sample shows the collection of records from $scope ( see <b>/controllers/uiController.js >
+        <p>Этот пример отображает коллекцию записей из $scope (смотрите <b>/controllers/uiController.js >
             <span class="red">$scope.records</span>).</b></p>
 
-        <p>Each element of the list is clickable: clicking on the tag will call the <b class="red">$scope.editRecord</b>
-            method, and pass the appropriate record, as an argument</p>
+        <p>Каждый элемент списка является интерактивным: нажав на него сработает <b class="red">$scope.editRecord</b>
+            метод, в который будет передана соответствующая запись в качестве аргумента.</p>
 
-        <p>The <b class="red">editRecord</b> function saves the link on currently editing record
-            (<b class="red">edited = record;</b>), sets the values of name and description inputs, and then opens
-            dialog:
+        <p>Функция <b class="red">editRecord</b> копирует текущую запись, затем открывает диалоговое окно,
+            передавая в него копию записи. Для открытия диалогового окна используется вунция <b class="red">$modal.open</b>
+            в которую нужно передать шаблон диалогового окна (<b>views/dialogs/editRecord.html</b>) и контроллер,
+            отвечающий за обработку шаблона (<b>app.editRecordDialogCtrl</b>):
         </p>
 
-        <div class="oms-example">
+        <div class="code-example">
             <div class="code">
                 <p>$scope.editRecord = function(record) {</p>
-                <p class="one-indent">edited = record;</p>
-                <p class="one-indent">$name.val(record.name);</p>
-                <p class="one-indent">$description.val(record.description);</p>
-                <p class="one-indent">$details.modal('show');</p>
+                <p class="one-indent">var temp = {};</p>
+                <p class="one-indent">temp.name = record.name;</p>
+                <p class="one-indent">temp.description = record.description;</p>
+                <br>
+                <p class="one-indent">var modalInstance = $modal.open({</p>
+                <p class="two-indent">templateUrl: <b class="red">'views/dialogs/editRecord.html'</b>,</p>
+                <p class="two-indent">controller: <b class="red">app.editRecordDialogCtrl</b>,</p>
+                <p class="two-indent">resolve: { record : function() { <b class="red">return temp;</b> } }</p>
+                <p class="one-indent">});</p>
+                <p class="one-indent">...</p>
                 <p>};</p>
             </div>
         </div>
 
-        <h2>After editing record</h2>
-        <p>and saving it, you'll see, that list of records has changed too.</p>
-        <p>Let's see, how did we do it:</p>
+        <h2>Диалоговое окно</h2>
+        <p>Во время открытия диалогового окна, в его контроллер инжектится запись <b class="red">record</b>, которая помещается
+            в область видимости диалогового окна (<b class="red">$scope.record = record</b>). После редактирования записи
+            вызывается функция закрытия диалога, в которую можно передать измененную запись (<b class="red">$modalInstance.close($scope.record)</b>),
+            чтобы получить измененное значение в радительском контроллере</p>
 
-        <div class="oms-example">
+        <div class="code-example">
             <div class="code">
-            <p>$scope.saveChanges = function() {</p>
-            <p class="one-indent">edited.name = $name.val();</p>
-            <p class="one-indent">edited.description = $description.val();</p>
-            <p class="one-indent">$details.modal('hide');</p>
-            <p>}</p>
+                <p>app.editRecordDialogCtrl = function ($scope, $modalInstance, <b class="red">record</b>) {</p>
+                <p class="one-indent"><b class="red">$scope.record = record;</b></p>
+                <br>
+                <p class="one-indent">$scope.save = function () {</p>
+                <p class="two-indent"><b class="red">$modalInstance.close($scope.record);</b></p>
+                <p class="one-indent">};</p>
+                <br>
+                <p class="one-indent">$scope.close = function () {</p>
+                <p class="two-indent"><b class="red">$modalInstance.close();</b></p>
+                <p class="one-indent">};</p>
+                <p>};</p>
             </div>
         </div>
 
-        <p>We just have set the values of the editing record. We did not touch the html template!
-            Angular have made everything for us. This feature is called &quote;Data-binding&quote;</p>
-        <p>When the page loads, Angular binds the name of the input box to a variable of the same name in the
-            data model and keeps the two in sync. That means, that you can edit your html, and it will automatically
-            change your javascript object and vice versa.</p>
+        <h2>После редактирования записи</h2>
+        <p>сохранив ее вы увидите, что список записей тоже изменился.</p>
+        <p>Давайте посмотрим, как мы это сделали:</p>
 
-        <h2>The last thing,</h2>
-        <p>I'd like to point out here is modularity</p>
-        <p>As you have seen, we declare our controller, like this:</p>
-
-        <div class="oms-example">
+        <div class="code-example">
             <div class="code">
-                <b class="red">app.</b>UIController = function ($scope) { <b class="grey">...</b> }
+                <p>$scope.editRecord = function(<b class="red">record</b>) {</p>
+                <p class="one-indent">...</p>
+                <p class="one-indent">modalInstance.result.then(function (result) {</p>
+                <p class="two-indent">if (result) {</p>
+                <p class="three-indent"><b class="red">record.name = result.name;</b></p>
+                <p class="three-indent"><b class="red">record.description = result.description;</b></p>
+                <p class="two-indent">}</p>
+                <p class="one-indent"> }, function() {});</p>
+                <p>};</p>
             </div>
         </div>
 
-        <p>To tell the truth, we could use the simpler way:</p>
+        <p>Мы просто должны установить новое значения в редактируемую запись. Мы не меняли html шаблон!
+            Angular сделал это за нас. Эта функциональность называется &quot;Data-binding&quot;</p>
+        <p>Когда страница загрузится, Angular связывает имя в поле ввода переменной с тем же именем в модели данных и
+            синхронизирует их. Это означает, что вы можете редактировать HTML-код, и он автоматически изменит Ваш JavaScript
+            объект и наоборот.</p>
 
-        <div class="oms-example">
+        <h2>И последнее,</h2>
+        <p>Я бы хотел указать на модульность</p>
+        <p>Как Вы видите мы объявляем контроллер таким образом:</p>
+
+        <div class="code-example">
+            <div class="code">
+                <b class="red">app.</b>UICtrl = function ($scope, $modal) { <b class="grey">...</b> }
+            </div>
+        </div>
+
+        <p>Мы бы могли использовать более простой способ:</p>
+
+        <div class="code-example">
             <div class="code">
                 function UIController ($scope) { <b class="grey">...</b> }
             </div>
         </div>
 
-        <p>But in this case, this function will be added to global object
-            (object <b class="red">window</b> in our case). Actually, this is not very critical,
-            but clocking global object is a bad practice.</p>
+        <p>Но в данном случаи функция будет добавлена в глобальную область видимости
+            (в нашем случаи это объект <b class="red">window</b>). На самом деле это не очень критично,
+            но засорять глобальную область видимости - это плохая практика.</p>
 
-        <p>To avoid this problem, we just create <b class="red">app</b> object, somewhere in the code
-            (see <b>scripts/app.js</b>), and then put all the modules there.</p>
+        <p>Чтбоы избежать данной проблемы, мы просто создаем объект <b class="red">app</b> (смотрите <b>scripts/app.js</b>),
+            в который помещаем все наши модули.</p>
 
-        <h2>So far</h2>
-        <p>we were using hardcoded collections, which are not very useful in real projects. So, the next step
-        will be learning <a href="#/services">services</a></p>
+        <h2>До сих пор</h2>
+        <p>Мы использовали захардкожение коллекции, которые не очень полезны в реальных проектах. поэтому следующим
+            шагом будет изучение <a href="#/services">сервисов</a></p>
 
     </article>
 </div>

@@ -1,8 +1,6 @@
-app.showRecordDialogCtrl = function ($scope, $modalInstance, Record, id) {
+app.showRecordDialogCtrl = function ($scope, $modalInstance, record) {
 
-    Record.get({id: id}, function(result) {
-        $scope.chosen = result;
-    });
+    $scope.chosen = record;
 
     $scope.close = function () {
         $modalInstance.close();
