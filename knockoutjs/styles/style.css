@@ -122,6 +122,10 @@ img {
     padding-left: 40px;
 }
 
+.six-indent {
+    padding-left: 50px;
+}
+
 .none-resize {
     resize: none;
 }

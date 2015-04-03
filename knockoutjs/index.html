@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
 
     <!-- meta tag, for avoiding view scaling in mobile devices -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OMS helper</title>
+    <title>Knockout helper</title>
 
     <!-- bootstrap css rules -->
     <link href="styles/bootstrap.min.css" rel="stylesheet" media="screen">
@@ -27,15 +28,15 @@
 
                 <div class="nav-collapse collapse">
                     <ul class="nav navbar-nav routing">
-                        <li data-bind="css : { active : 'home' == $root.chosenView() }"><a href="#home">Getting started</a></li>
-                        <li data-bind="css : { active : 'routing' == $root.chosenView() }"><a href="#routing">Routing</a></li>
-                        <li data-bind="css : { active : 'controlling' == $root.chosenView() }"><a href="#controlling">UI Control</a></li>
-                        <li data-bind="css : { active : 'services' == $root.chosenView() }"><a href="#services">Services</a></li>
+                        <li data-bind="css : { active : 'home' == $root.chosenView() }"><a href="#home">Приступаем к работе</a></li>
+                        <li data-bind="css : { active : 'routing' == $root.chosenView() }"><a href="#routing">Маршрутизация</a></li>
+                        <li data-bind="css : { active : 'controlling' == $root.chosenView() }"><a href="#viewModel">Управление интерфейсом</a></li>
+                        <li data-bind="css : { active : 'services' == $root.chosenView() }"><a href="#services">Сервисы</a></li>
                     </ul>
 
                     <ul class="nav navbar-nav pull-right routing">
-                        <li><a href="http://docs.angularjs.org/tutorial">Angular official tutorial</a></li>
-                        <li data-bind="css : { active : 'docs' == $root.chosenView() }"><a href="#docs">Useful docs</a></li>
+                        <li><a href="http://learn.knockoutjs.com/">Knockout official tutorial</a></li>
+                        <li data-bind="css : { active : 'docs' == $root.chosenView() }"><a href="#docs">Полезные документы</a></li>
                     </ul>
 
                 </div>
@@ -45,7 +46,7 @@
         <!-- app body -->
         <div data-bind="template: { name : 'home', templateUrl: 'template' }, visible : showTemplate('home')"></div>
         <div data-bind="template: { name : 'routing', templateUrl: 'template' }, visible : showTemplate('routing')"></div>
-        <div data-bind="template: { name : 'controlling', templateUrl: 'template' }, visible : showTemplate('controlling')"></div>
+        <div data-bind="template: { name : 'viewModel', templateUrl: 'template' }, visible : showTemplate('viewModel')"></div>
         <div data-bind="template: { name : 'services', templateUrl: 'template' }, visible : showTemplate('services')"></div>
         <div data-bind="template: { name : 'docs', templateUrl: 'template' }, visible : showTemplate('docs')"></div>
 
@@ -53,8 +54,7 @@
     <!-- app footer -->
     <div id="footer" class="container">
         <div class="container">
-            <p class="credit footer-line">Created by Anton Nekrasov</p>
-            <p class="credit footer-line">Updated by Aleksey Domorenok</p>
+            <p class="credit footer-line">Разработал Алексей Доморенок</p>
         </div>
     </div>
 

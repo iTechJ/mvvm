@@ -33,8 +33,8 @@ define([], function() {
 
         return {
             send: self.send
-        }
-    }
+        };
+    };
 
     return new BaseService();
 });

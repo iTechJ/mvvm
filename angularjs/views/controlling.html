@@ -79,7 +79,7 @@
             <b class="red">$scope</b> (например <b class="red">records</b>) которые достаточно просто прописать в тэге:</p>
 
         <div class="code-example">
-            <div class="code">&lt;li <b class="red">ng-repeat="record in records" ng-click="editRecord(record)"&gt;</b></div>
+            <div class="code">&lt;li <b class="red">ng-repeat="record in records" ng-click="editRecord(record)"</b>&gt;</div>
             <div class="code one-indent">{{<b class="red">record.name</b>}}</div>
             <div class="code one-indent">&lt;span class="small-font"&gt;</div>
             <div class="code two-indent">({{<b class="red">record.description</b>}})</div>
@@ -94,7 +94,7 @@
             метод, в который будет передана соответствующая запись в качестве аргумента.</p>
 
         <p>Функция <b class="red">editRecord</b> копирует текущую запись, затем открывает диалоговое окно,
-            передавая в него копию записи. Для открытия диалогового окна используется вунция <b class="red">$modal.open</b>
+            передавая в него копию записи. Для открытия диалогового окна используется функция <b class="red">$modal.open</b>
             в которую нужно передать шаблон диалогового окна (<b>views/dialogs/editRecord.html</b>) и контроллер,
             отвечающий за обработку шаблона (<b>app.editRecordDialogCtrl</b>):
         </p>

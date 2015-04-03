@@ -4,7 +4,7 @@ define([], function() {
         this.fn = fn;
         this.scope = scope;
         this.parameters = parameters;
-    }
+    };
 
     return Callback;
 });

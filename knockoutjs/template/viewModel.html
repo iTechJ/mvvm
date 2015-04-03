@@ -1,0 +1,209 @@
+<div class="container container-padding">
+    <article>
+        <h1>ViewModel</h1>
+        <p>является краеугольным камнем приложения. Он описывает поведение соответствующего представления. Давайте посмотрим пример:</p>
+
+        <!---->
+        <!---->
+        <!--CONTROLLER EXAMPLE-->
+        <!---->
+        <!---->
+
+        <div class="oms-example">
+            <ul class="list-group" data-bind="foreach: $root.viewModelVM.records">
+                <li class="list-group-item oms-record" data-bind="click: $root.viewModelVM.showModal">
+                    <span data-bind="text : name"></span>
+                    <span class="small-font">(<span data-bind="text: description"></span>)</span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="details">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close"
+                                data-dismiss="modal"
+                                aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Редактировать запись</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <fieldset>
+                                <div class="form-group">
+                                    <label for="nameInput">Имя</label>
+                                    <input id="nameInput" type="text" class="form-control" placeholder="Введите имя"
+                                           data-bind="value : $root.viewModelVM.name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="descriptionInput">Описание</label>
+                                            <textarea class="form-control"
+                                                      id="descriptionInput"
+                                                      style="resize: none"
+                                                      placeholder="Введите описание"
+                                                      data-bind="value : $root.viewModelVM.description">
+                                            </textarea>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+                        <button type="button" class="btn btn-primary" data-bind="click: $root.viewModelVM.saveChanges">Сохранить изменения</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+        <!---->
+        <!---->
+        <!--CONTROLLER EXAMPLE-->
+        <!---->
+        <!---->
+
+        <p>Давайте откроем <b>scripts/controllers/uiController.js</b> файл, и посмотрим на него:</p>
+
+        <div class="oms-example">
+            <div class="code">
+                <p>define(<b class="red">['model/record']</b>, function(<b class="red">Record</b>) {</p>
+                <br>
+                <p class="one-indent">function <b class="red">ViewModelViewModel</b>() {</p>
+                <p class="two-indent">var <b class="red">self</b> = this;</p>
+                <br>
+                <p class="two-indent">self.description = <b class="red">ko.observable()</b>;</p>
+                <p class="two-indent">self.name = <b class="red">ko.observable()</b>;</p>
+                <p class="two-indent">self.editedId = -1;</p>
+                <br>
+                <p class="two-indent">self.tempRecords = [{...}];</p>
+                <br>
+                <p class="two-indent">self.records = <b class="red">ko.observableArray()</b>;</p>
+                <p class="two-indent">for (var i in self.tempRecords) {</p>
+                <p class="four-indent">var rec = self.tempRecords[i];</p>
+                <p class="four-indent"><b class="red">self.records().push</b>(new <b class="red">Record</b>(rec.id, rec.name, rec.description));</p>
+                <p class="two-indent">};
+                <br>
+                <p class="two-indent">self.showModal = function(record) {...};</p>
+                <br>
+                <p class="two-indent">self.saveChanges = function() {...};</p>
+                <br>
+                <p class="two-indent">return {</p>
+                <p class="four-indent">records : self.records,</p>
+                <p class="four-indent">showModal : self.showModal,</p>
+                <p class="four-indent">saveChanges : self.saveChanges,</p>
+                <p class="four-indent">name : self.name,</p>
+                <p class="four-indent">description : self.description</p>
+                <p class="two-indent">};</p>
+                <p class="one-indent">};</p>
+                <br>
+                <p class="one-indent"><b class="red">return ViewModelViewModel;</b></p>
+                <p>});</p>
+            </div>
+        </div>
+
+        <p>Все данные, используемые в <b>/template/viewModel.html</b> шаблоне, прикреплены к текущеей области видимости (<b class="red">self</b>).
+            Для того, чтобы данные наши отобразились, мы должны сделать их наблюдаемыми (observable), чтобы Knockout JS мог их связать с шаблоном.</p>
+
+        <p>Так-же вы можете заметить, что наши данные представлены в виде модели (<b class="red">Record</b>), однако Knockout ничего о ней не знает,
+            поэтому мы должы ему помоч нее найти. Для этого в нашем приложении используется <b>Require JS</b>. Он применяется для подгрузки модулей.
+            Для этого нам необходимо указать, где лежит нужный нам код, и в какой объект его поместить после загрузки</p>
+
+        <div class="oms-example">
+            <span class="code">
+                define(<b class="red">['model/record']</b>, function(<b class="red">Record</b>) { <b class="grey">...</b> }
+            </span>
+        </div>
+
+        <p>Если Вы не хотите, чтобы ваши данные были видны в шаблон, то вы просто объявляете их как локальную переменную
+            (например <b class="red">var edited;</b>)</p>
+
+        <h2>Связь данных с шаблоном</h2>
+        <p>Для связи данных с шаблоном используются деректива <b>data-bind</b> с соответствующими параметрами
+            <b class="red">$scope</b> (например <b class="red">data-bind="foreach:..."</b>) которые достаточно просто прописать в тэге:</p>
+
+        <div class="oms-example">
+            <div class="code">
+                <p>&lt;ul class="list-group" <b class="red">data-bind="foreach: $root.viewModelVM.records"</b>&gt;</p>
+                <p class="one-indent">&lt;li class="list-group-item oms-record" <b class="red">data-bind="click: $root.viewModelVM.showModal"</b>&gt;</p>
+                <p class="two-indent">&lt;span <b class="red">data-bind="text : name"</b>>&lt;/span></p>
+                <p class="two-indent">&lt;span class="small-font"&gt;(&lt;span <b class="red">data-bind="text: description"</b>&gt;&lt;/span&gt;)&lt;/span&gt;</p>
+                <p class="one-indent">&lt;/li&gt;</p>
+                <p>&lt;/ul&gt;</p>
+            </div>
+        </div>
+
+        <p>Этот пример отображает коллекцию записей из viewModel (смотрите <b>/modelView/ViewModelViewModel.js >
+            <span class="red">self.records</span>).</b></p>
+
+        <p>Каждый элемент списка является интерактивным: нажав на него сработает <b class="red">self.showModal</b>
+            метод, в который будет передана соответствующая запись в качестве аргумента.</p>
+
+        <p>Функция <b class="red">showModal</b> копирует текущую запись, затем открывает диалоговое окно:</p>
+
+        <div class="oms-example">
+            <div class="code">
+                <p>self.showModal = function(record) {</p>
+                <p class="one-indent">self.editedId = record.id;</p>
+                <p class="one-indent">self.name(record.name());</p>
+                <p class="one-indent">self.description(record.description());</p>
+                <p class="one-indent">$('#details').modal();</p>
+                <p>};</p>
+            </div>
+        </div>
+
+        <h2>После редактирования записи</h2>
+        <p>и сохранения записи, вы увидете, что список так-же изменился.</p>
+        <p>Давайте посмотри как это работает:</p>
+
+        <div class="oms-example">
+            <div class="code">
+                <p>self.saveChanges = function() {</p>
+                <p class="one-indent">self.records()[self.editedId - 1].name(self.name());</p>
+                <p class="one-indent">self.records()[self.editedId - 1].description(self.description());</p>
+                <p class="one-indent">$('#details').modal('hide');</p>
+                <p>};</p>
+            </div>
+        </div>
+
+        <p>Мы просто должны установить новое значения в редактируемую запись. Мы не меняли html шаблон!
+            Knockout сделал это за нас. Эта функциональность называется &quot;Data-binding&quot;</p>
+        <p>Когда страница загрузится, Angular связывает имя в поле ввода переменной с тем же именем в модели данных и
+            синхронизирует их. Это означает, что вы можете редактировать HTML-код, и он автоматически изменит Ваш JavaScript
+            объект и наоборот.</p>
+
+        <h2>И последнее,</h2>
+        <p>Я бы хотел указать на модульность</p>
+        <p>Как вы уже видели, мы объявили ViewModel следующим образом:</p>
+
+        <div class="oms-example">
+            <div class="code">
+                <p><b class="red">define</b>(['model/record'], function(Record) {</p>
+                <br>
+                <p class="one-indent">function ViewModelViewModel() {...};</p>
+                <br>
+                <p class="one-indent"><b class="red">return ViewModelViewModel;</b></p>
+                <p>});</p>
+            </div>
+        </div>
+
+        <p>Мы бы могли использовать более простой способ:</p>
+
+        <div class="oms-example">
+            <div class="code">
+                function ViewModelViewModel ($scope) { <b class="grey">...</b> }
+            </div>
+        </div>
+
+        <p>Но в данном случаи функция будет добавлена в глобальную область видимости
+            (в нашем случаи это объект <b class="red">window</b>). На самом деле это не очень критично,
+            но засорять глобальную область видимости - это плохая практика.</p>
+
+        <p>Чтбоы избежать данной проблемы, мы оборачиваем все наши модули функцияй define(),
+            в который помещаем наш модуль. Это функция <b>Require JS</b>, которая отвечает за асинхронную подгрузку модулей (AMD).</p>
+
+        <h2>До сих пор</h2>
+        <p>Мы использовали захардкожение коллекции, которые не очень полезны в реальных проектах. поэтому следующим
+            шагом будет изучение <a href="#services">сервисов</a></p>
+
+    </article>
+</div>

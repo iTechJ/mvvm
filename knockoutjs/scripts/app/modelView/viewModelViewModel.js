@@ -1,6 +1,6 @@
 define(['model/record'], function(Record) {
 
-    function ControllingViewModel() {
+    function ViewModelViewModel() {
         var self = this;
 
         self.description = ko.observable();
@@ -57,5 +57,5 @@ define(['model/record'], function(Record) {
         };
     };
 
-    return ControllingViewModel;
+    return ViewModelViewModel;
 });

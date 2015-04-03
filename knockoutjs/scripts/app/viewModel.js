@@ -1,40 +1,32 @@
 define(['modelView/homeViewModel',
         'modelView/routingViewModel',
-        'modelView/controllingViewModel',
+        'modelView/viewModelViewModel',
         'modelView/servicesViewModel',
         'modelView/docsViewModel'
-], function(homeVM, routingVM, controllingVM, servicesVM, docsVM) {
-
-    var app = {};
-
-    app['home'] = homeVM;
-    app['routing'] = routingVM;
-    app['controlling'] = controllingVM;
-    app['services'] = servicesVM;
-    app['docs'] = docsVM;
+], function(homeVM, routingVM, viewModelVM, servicesVM, docsVM) {
 
     function MainViewModel() {
         // Data
-        var parentSelf = this;
-        parentSelf.view = 'home';
-        parentSelf.chosenView = ko.observable(parentSelf.view);
+        var self = this;
+        self.view = 'home';
+        self.chosenView = ko.observable(self.view);
 
-        parentSelf.homeVM = new homeVM();
-        parentSelf.routingVM = new routingVM();
-        parentSelf.controllingVM = new controllingVM();
-        parentSelf.servicesVM = new servicesVM();
-        parentSelf.docsVM = new docsVM();
+        self.homeVM = new homeVM();
+        self.routingVM = new routingVM();
+        self.viewModelVM = new viewModelVM();
+        self.servicesVM = new servicesVM();
+        self.docsVM = new docsVM();
 
         // Client-side routes
         Sammy(function () {
             this.get('#:view', function () {
-                parentSelf.view = this.params.view;
-                parentSelf.chosenView(parentSelf.view);
+                self.view = this.params.view;
+                self.chosenView(self.view);
             });
         }).run('#home');
 
-        parentSelf.showTemplate = function(name) {
-            return parentSelf.chosenView() == name;
+        self.showTemplate = function(name) {
+            return self.chosenView() == name;
         };
     };
 

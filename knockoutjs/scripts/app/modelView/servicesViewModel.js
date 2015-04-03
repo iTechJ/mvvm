@@ -31,7 +31,6 @@ define(['service/recordService',
                     }, self, {}
                 )
             );
-
         };
 
         return {

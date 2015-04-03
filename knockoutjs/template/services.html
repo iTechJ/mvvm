@@ -1,10 +1,10 @@
 <div class="container container-padding">
     <article>
 
-        <h1>Http services</h1>
+        <h1>Http сервисы</h1>
 
-        <p>provide us the ability to make XHR requests for data and interact with RESTful server-side data sources.
-            Let's see an example:</p>
+        <p>предоставлюет нам возможность отправлять XHR запросы с данными и общаться с  RESTful сервером = источником данных.
+            Давайте посмотрим пример:</p>
 
         <!---->
         <!---->
@@ -57,92 +57,182 @@
         <!---->
         <!---->
 
-        <p>If you open your debugger, you'll note, that list of data was loaded through XHR request:</p>
+        <p>Если вы откроете отладчик, то увидите, что список данных был получен при помощи XHR запроса:</p>
         <div class="xhr-request-img">
             <img src="images/request.png" alt="debugger">
         </div>
 
         <section>
-            <h2>Let's see, how does it work.</h2>
-            <p>First of all we need to add angular-resource.js file to our application</p>
+            <h2>Давайте посмотрим, как это работает.</h2>
+            <p>Первое, что хочется отметить, в Knockout JS нет готовой реализации сервисов, и поэтому их нам придется писать самим.</p>
 
-            <p>Our service is defined in <b>scripts/services/recordServices.js</b>:</p>
+            <p>Для начала нужно описать базовую вункциональность сервиса (<b>service/baseService.js</b>):</p>
 
             <div class="oms-example">
                 <div class="code">
-                    <p>angular.module(<b class="red">"recordServices"</b>, [<b class="red">&quot;ngResource&quot;</b>]).</p>
-                    <p class="one-indent">factory(&quot;Record&quot;, function($resource) {</p>
-                    <p class="three-indent">return $resource(<b class="red">&quot;data/:id.json&quot;</b>, {}, {</p>
-                    <p class="five-indent">
-                        <b class="red">
-                            getAll: {method: &quot;GET&quot;, params: {id: &quot;all&quot;}, isArray: true}
-                        </b>
-                    </p>
-                    <p class="one-indent">});</p>
+                    <p>define([], function() {</p>
+
+                    <p class="one-indent">function <b class="red">BaseService</b>() {</p>
+                    <p class="two-indent">var self = this,</p>
+                    <p class="two-indent">params = {};</p>
+
+                    <p class="two-indent">self.send = function(url, method, data, success, error, callback) {</p>
+
+                    <p class="three-indent"><b class="red">jQuery.ajax</b>({</p>
+                    <p class="four-indent"><b class="red">url: url</b>,</p>
+                    <p class="four-indent"><b class="red">method: method</b>,</p>
+                    <p class="four-indent"><b class="red">data: data</b></p>
+                    <p class="three-indent">}).done(function(s) {</p>
+                    <p class="four-indent">if(success) {</p>
+                    <p class="five-indent">params = success.parameters;</p>
+                    <p class="five-indent">if(s) params.reply = s;</p>
+                    <p class="five-indent"><b class="red">success.fn.apply</b>(success.scope, [params]);</p>
+                    <p class="four-indent">}</p>
+                    <p class="three-indent">}).fail(function(e) {</p>
+                    <p class="four-indent">if(error) {</p>
+                    <p class="five-indent">params = error.parameters;</p>
+                    <p class="five-indent">if(e) params.reply = e;</p>
+                    <p class="five-indent"><b class="red">error.fn.apply</b>(error.scope, [params]);</p>
+                    <p class="four-indent">}</p>
+                    <p class="three-indent">}).always(function(c) {</p>
+                    <p class="four-indent">if(callback) {</p>
+                    <p class="five-indent">params = callback.parameters;</p>
+                    <p class="five-indent">if(c) params.reply = c;</p>
+                    <p class="five-indent"><b class="red">callback.fn.apply</b>(callback.scope, [params]);</p>
+                    <p class="four-indent">}</p>
+                    <p class="three-indent">});</p>
+                    <p class="two-indent">};</p>
+
+                    <p class="two-indent">return { send: self.send };</p>
+                    <p class="one-indent">};</p>
+
+                    <p class="one-indent">return new BaseService();</p>
                     <p>});</p>
                 </div>
             </div>
 
-            <p>Note, that used the module API to register a custom service. We passed in
-                the name of the service - <b class="red">&quot;Record&quot;</b> - and the factory function.</p>
-            <p>The <b class="red">Record</b> service declared a dependency on the $resource service.</p>
-            <p>We have also declared method <b class="red">getAll</b>, which will return us all the available records.</p>
-            <p>There are a number of predefined methods, which are available by default:</p>
+            <p>Как вы можете заметить, мы использовали обычный ajax.</p>
+            <p>Теперь давайте посмсотрим на то, как мы можем использовать этот базовый сервис:</p>
 
             <div class="oms-example">
                 <div class="code">
-                    <p>{</p>
-                    <p class="one-indent">&quot;get&quot;:    {method:&quot;GET&quot;},</p>
-                    <p class="one-indent">&quot;save&quot;:   {method:&quot;POST&quot;},</p>
-                    <p class="one-indent">&quot;query&quot;:  {method:&quot;GET&quot;, isArray:true},</p>
-                    <p class="one-indent">&quot;remove&quot;: {method:&quot;DELETE&quot;},</p>
-                    <p class="one-indent">&quot;delete&quot;: {method:&quot;DELETE&quot;}</p>
-                    <p>};</p>
+                    <p>define([<b class="red">"service/baseService"</b>], function(<b class="red">baseService</b>) {</p>
+                    <p class="one-indent">function RecordService(){</p>
+                    <p class="two-indent">var self = this;
+                    <br>
+                    <p class="two-indent"><b class="red">self.list</b> = function(success, error, done) {</p>
+                    <p class="three-indent"><b class="red">baseService.send</b>(</p>
+                    <p class="four-indent">"data/all.json",</p>
+                    <p class="four-indent">"GET",</p>
+                    <p class="four-indent">{},</p>
+                    <p class="four-indent">success,</p>
+                    <p class="four-indent">error,</p>
+                    <p class="four-indent">done</p>
+                    <p class="three-indent">);</p>
+                    <p class="two-indent">};</p>
+                    <br>
+                    <p class="two-indent"><b class="red">self.get</b> = function(id, success, error, done) {</p>
+                    <p class="three-indent"><b class="red">baseService.send</b>(</p>
+                    <p class="four-indent">"data/" + id + ".json",</p>
+                    <p class="four-indent">"GET",</p>
+                    <p class="four-indent">{},</p>
+                    <p class="four-indent">success,</p>
+                    <p class="four-indent">error,</p>
+                    <p class="four-indent">done</p>
+                    <p class="three-indent">);</p>
+                    <p class="two-indent">};</p>
+                    <br>
+                    <p class="two-indent">return {</p>
+                    <p class="three-indent">list: self.list,</p>
+                    <p class="three-indent">get: self.get</p>
+                    <p class="two-indent">};</p>
+                    <p class="one-indent">}</p>
+                    <br>
+                    <p class="one-indent">return new RecordService();</p>
+                    <p>});</p>
                 </div>
             </div>
+
+            <p>Мы реализовали для метода (<b>list</b> и <b>get</b>) для получения данных.</p>
 
         </section>
 
         <section>
-            <h2>Now</h2>
-            <p>we have a finished service and ready to use it.</p>
-            <p>First of all, don't forget to add our service module to the application (see <b>/scripts/app.js</b>):</p>
-
-            <div class="oms-example">
-                <div class="code">angular.module(&quot;oms&quot;, [<b class="red">&quot;recordServices&quot;</b>])</div>
-            </div>
-
-            <p>Then you just put the service name to your controller, as a parameter, and Angular will
-                inject it for you:</p>
+            <h2>Теперь</h2>
+            <p>у нас есть готовый сервис и мы готовы использовать его.</p>
+            <p>Не забываем добавить его в параметры:</p>
 
             <div class="oms-example">
                 <div class="code">
-                    <p>app.ServiceController = function ($scope, <b class="red">Record</b>) {</p>
-                    <p class="one-indent" class="grey">...</p>
-                    <p class="one-indent">$scope.records = <b class="red">Record.getAll();</b></p>
-                    <p class="one-indent">$scope.showRecord = function (id) {</p>
-                    <p class="three-indent"><b class="red">Record.get({id: id}, function(result) {</b></p>
-                    <p class="five-indent">$scope.chosen = result;</p>
-                    <p class="five-indent">$(&quot;#info&quot;).modal(&quot;show&quot;);</p>
-                    <p class="three-indent">});</p>
-                    <p class="one-indent">}</p>
-                    <p>};</p>
+                    <p>define([<b class="red">'service/recordService'</b>,</p>
+                    <p class="one-indent">'model/record',</p>
+                    <p class="one-indent">'model/recordDetails',</p>
+                    <p class="one-indent"><b class="red">'util/callback'</b>], function(<b class="red">recordService</b>,
+                        Record, RecordDetails, <b class="red">Callback</b>) {</p>
+                    <br>
+                    <p class="one-indent">function ServicesViewModel() {</p>
+                    <p class="two-indent"><b class="red">self.chosen = ko.observable</b>(new RecordDetails());</p>
+                    <p class="two-indent"><b class="red">self.records = ko.observableArray</b>([]);</p>
+                    <p class="two-indent"><b class="red">recordService.list</b>(</p>
+                    <p class="three-indent">new <b class="red">Callback</b>(</p>
+                    <p class="four-indent">function(params){</p>
+                    <p class="five-indent">var reply = params.reply;</p>
+                    <p class="five-indent">for (var i in reply) {</p>
+                    <p class="six-indent">this.records().push(new Record(reply[i].id, reply[i].name));</p>
+                    <p class="five-indent">}</p>
+                    <p class="four-indent">}, <b class="red">self</b>, {}</p>
+                    <p class="three-indent">)</p>
+                    <p class="two-indent">);</p>
+                    <br>
+                    <p class="one-indent">self.showModal = function(record) {</p>
+                    <p class="two-indent"><b class="red">recordService.get</b>(</p>
+                    <p class="three-indent">record.id,</p>
+                    <p class="three-indent">new <b class="red">Callback</b>(</p>
+                    <p class="four-indent">function(params){</p>
+                    <p class="five-indent">var details = params.reply;</p>
+                    <p class="five-indent">self.chosen(new RecordDetails(details.name, details.description, details.image));</p>
+                    <p class="five-indent">$('#info').modal();</p>
+                    <p class="four-indent">}, <b class="red">self</b>, {}</p>
+                    <p class="three-indent">)</p>
+                    <p class="two-indent">);</p>
+                    <p class="one-indent">};</p>
+                    <br>
+                    <p class="one-indent">};</p>
+                    <br>
+                    <p class="one-indent">return ServicesViewModel;</p>
+                    <p>});</p>
                 </div>
             </div>
 
-            <p>Here we used our service twice: first time we called our predefined method <b class="red">getAll</b>
-                in order to get the list of records, and then we used default method <b class="red">get</b>,
-                in order to obtain the details</p>
+            <p>Здесь мы использовали наш сервис дважды: первый раз мы вызвали нами определенный метод <b class="red">list</b> чтобы
+                получить список всех записей, и затем мы использовали метод <b class="red">get</b>, чтобы подучить детали каждой записи</p>
+            <p>Для получения результата, мы использовали <b class="red">Callback</b> функцию:</p>
+
+            <div class="oms-example">
+                <div class="code">
+                    <p>define([], function() {</p>
+                    <p class="one-indent">function Callback(fn, scope, parameters){</p>
+                    <p class="two-indent">this.fn = fn;</p>
+                    <p class="two-indent">this.scope = scope;</p>
+                    <p class="two-indent">this.parameters = parameters;</p>
+                    <p class="one-indent">};</p>
+                    <p class="one-indent">return Callback;</p>
+                    <p>});
+                </div>
+            </div>
+
+            <p>Выжным замечанием будет то,
+                что в нее мы передали наш <b class="red">self</b>, это нужно для того, чтобы наш Callback выполнялся в пределах
+                текущей области видимости.</p>
 
         </section>
 
         <section>
             <h2></h2>
-            <p>Now you know the basis, needed to start working on your application. As a next step, you can start
-                working with the <a href="http://docs.angularjs.org/tutorial">official tutorial</a>. Despite the fact,
-                that you'll find a lot of things to be familiar for you, there are a lot of things,
-                which we haven't covered in our tutorial.</p>
-            <p>You can also refer to <a href="#/docs">Useful docs</a> section for additional information.</p>
+            <p>Теперь вы знаете основы, необходимые для начала работы над вашем приложением. В качестве следующего шага
+                вы можете ознокомиться с <a href="http://learn.knockoutjs.com/">официальным туториалом</a>.
+                Несмотря на то, что вы встретите много знакомого, есть много вещей, который небыли указаны в этой статье</p>
+            <p>Вы так-же можете обратиться к разделу <a href="#docs">Полезные документы</a>, для получения дополнительной информации.</p>
         </section>
 
     </article>
