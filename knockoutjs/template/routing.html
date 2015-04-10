@@ -2,9 +2,9 @@
 
     <article>
         <h1>Маршрутизация</h1>
-        <p>Вы все еще находитесь на той-же страрнице</p>
-        <p>Да, внешний вид страницы изменился, вы видете новый текст... Но там небыло никаких обращений к серверу, чтобы получить страницу,
-            небыло потрачино трафика, чтобы загрузить ее. Javascript изменил вид сам.</p>
+        <p>Вы все еще находитесь на той-же странице</p>
+        <p>Да, внешний вид страницы изменился, вы видите новый текст... Но там не было никаких обращений к серверу, чтобы получить страницу,
+            не было потрачено трафика, чтобы загрузить ее. Javascript изменил вид сам.</p>
 
         <section>
             <h2>Давайте выяснить, как это работает</h2>
@@ -13,19 +13,19 @@
 
             <div class="oms-example">
                 <div class="code">&lt;li data-bind="css : { active : 'home' == $root.chosenView() }"&gt;&lt;a
-                    href="<b class="red">#home</b>"&gt;Приступаем к работе&lt;/a&gt;&lt;/li&gt;</div>
+                    href="<b class="red">#home</b>"&gt;К работе&lt;/a&gt;&lt;/li&gt;</div>
                 <div class="code">&lt;li data-bind="css : { active : 'routing' == $root.chosenView() }"&gt;&lt;a
                     href="<b class="red">#routing</b>"&gt;Маршрутизация&lt;/a&gt;&lt;/li&gt;</div>
                 <div class="code">&lt;li data-bind="css : { active : 'controlling' == $root.chosenView() }"&gt;&lt;a
-                    href="<b class="red">#viewModel</b>"&gt;Управление интерфейсом&lt;/a&gt;&lt;/li&gt;</div>
+                    href="<b class="red">#viewModel</b>"&gt;UI&lt;/a&gt;&lt;/li&gt;</div>
                 <div class="code">&lt;li data-bind="css : { active : 'services' == $root.chosenView() }"&gt;&lt;a
                     href="<b class="red">#services</b>"&gt;Сервисы&lt;/a&gt;&lt;/li&gt;</div>
             </div>
 
-            Обратите анимание на URL-адреса, используемые в ссылках.
+            Обратите внимание на URL-адреса, используемые в ссылках.
 
             <p>Если вы откроете <b>scripts/viewModel.js</b>, то увидите конфигурацию Sammy. Sammy JS - это библиотека,
-                котоая управляет маршрутизацияй всего приложения, и включает в себя реализацию истории:</p>
+                которая управляет маршрутизацией всего приложения, и включает в себя реализацию истории:</p>
 
             <div class="oms-example">
                 <p>Sammy(function () {</p>
@@ -42,7 +42,8 @@
 
             <p>Механизм простой - Sammy JS срабатывает на изменение адреса приложения и вызывает функцию, в которой из
                 <b class="red">this.params.view</b> можно получить селектор.</p>
-            <p>Этот селектор мы ложим в self.chosenView, по которому потом определяем, какой шаблон отображать (например для #home отображается шаблон home.html)</p>
+            <p>Этот селектор мы помещаем в self.chosenView, по которому потом определяем, какой шаблон отображать
+                (например для #home отображается шаблон home.html)</p>
         </section>
 
         <div class="oms-example">
@@ -54,7 +55,7 @@
         <section>
             <h2>Теперь</h2>
             <p>мы знаем, как настроить маршрутизацию в одностраничные приложения. Давайте выясним, как мы можем реализовать
-                взаимодействие <a href="#viewModel">viewModel</a> со страницой </p>
+                взаимодействие <a href="#viewModel">viewModel</a> со страницей </p>
         </section>
 
     </article>
