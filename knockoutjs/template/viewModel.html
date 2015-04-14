@@ -75,7 +75,11 @@
                 <p class="two-indent">self.name = <b class="red">ko.observable()</b>;</p>
                 <p class="two-indent">self.editedId = -1;</p>
                 <br>
-                <p class="two-indent">self.tempRecords = [{...}];</p>
+                <p class="two-indent">self.tempRecords = [{</p>
+                <p class="four-indent">id : 1,</p>
+                <p class="four-indent">name: "James Gosling",</p>
+                <p class="four-indent">description: "The inventor of Java programming language..."</p>
+                <p class="two-indent">}, ...];</p>
                 <br>
                 <p class="two-indent">self.records = <b class="red">ko.observableArray()</b>;</p>
                 <p class="two-indent">for (var i in self.tempRecords) {</p>

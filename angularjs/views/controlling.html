@@ -32,7 +32,10 @@
             <div class="code">
                 <p><b class="red">app.UICtrl</b> = function (<b class="red">$scope, $modal</b>) {</p>
                 <br>
-                <p class="one-indent"><b class="red">$scope.records</b> = [{<b class="grey"> ... </b>}];</p>
+                <p class="one-indent"><b class="red">$scope.records</b> = [{</p>
+                <p class="three-indent">name: "James Gosling",</p>
+                <p class="three-indent">description: "The inventor of Java programming language..."</p>
+                <p class="one-indent">}, ...];</p>
                 <p class="one-indent"><b class="red">$scope.editRecord</b> = function(record) {</p>
                 <p class="three-indent"><b class="red">var temp = {};</b></p>
                 <p class="three-indent">temp.name = record.name;</p>
@@ -104,7 +107,7 @@
 
         <div class="code-example">
             <div class="code">
-                <p>$scope.editRecord = function(record) {</p>
+                <p>$scope.editRecord = function(<b class="red">record</b>) {</p>
                 <p class="one-indent">var temp = {};</p>
                 <p class="one-indent">temp.name = record.name;</p>
                 <p class="one-indent">temp.description = record.description;</p>

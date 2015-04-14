@@ -1,7 +1,7 @@
 <div class="container container-padding">
     <article>
 
-        <h1>Полезные документы</h1>
+        <h1>Http сервисы</h1>
 
         <p>предоставляют нам возможность отправлять XHR запросы с данными и общаться с сервером приложений = источником данных.
             Давайте посмотрим пример:</p>
@@ -40,7 +40,7 @@
             <div class="code-example">
                 <div class="code">
                     <p>angular.module(<b class="red">"recordServices"</b>, [<b class="red">&quot;ngResource&quot;</b>]).</p>
-                    <p class="one-indent">factory(&quot;Record&quot;, function($resource) {</p>
+                    <p class="one-indent">factory(&quot;<b class="red">Record</b>&quot;, function($resource) {</p>
                     <p class="three-indent">return $resource(<b class="red">&quot;data/:id.json&quot;</b>, {}, {</p>
                     <p class="five-indent">
                         <b class="red">
