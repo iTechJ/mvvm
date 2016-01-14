@@ -1,13 +1,13 @@
-app.editRecordDialogCtrl = function ($scope, $modalInstance, record) {
+app.editRecordDialogCtrl = function ($scope, $uibModalInstance, record) {
 
     $scope.record = record;
 
     $scope.save = function () {
-        $modalInstance.close($scope.record);
+        $uibModalInstance.close($scope.record);
     };
 
     $scope.close = function () {
-        $modalInstance.close();
+        $uibModalInstance.close();
     };
 
 };

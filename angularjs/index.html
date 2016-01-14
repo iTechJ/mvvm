@@ -26,14 +26,14 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand font-blob" href="#/home">:<span class="red">i</span>techart helper</a>
+                <a class="navbar-brand font-blob" href="#/home">:<span class="red">i</span><span class="black">Tech</span><span class="red">Art</span> helper</a>
 
                 <div class="nav-collapse collapse">
                     <ul class="nav navbar-nav routing">
                         <li active-link="active"><a href="#/home">К работе</a></li>
                         <li active-link="active"><a href="#/routing">Маршрутизация</a></li>
                         <li active-link="active"><a href="#/controlling">UI</a></li>
-                        <li active-link="active"><a href="#/services">Сервисы</a></li>
+                        <li active-link="active"><a href="#/resource">Ресурсы</a></li>
                     </ul>
 
                     <ul class="nav navbar-nav pull-right routing">
@@ -56,7 +56,7 @@
     </div>
 
     <!-- jquery,which is needed for bootstrap, to work correct -->
-    <script src="scripts/vendor/jquery-1.9.1.js"></script>
+    <script src="scripts/vendor/jquery-2.2.0.js"></script>
     <!-- twitter bootstrap streamlines the layout development, and provides the classes for responsive design -->
     <script src="scripts/vendor/bootstrap.min.js"></script>
     <!-- angular js provides bindings and tools for creating spa -->
@@ -71,19 +71,18 @@
     <!-- controllers -->
     <script src="scripts/controllers/homeController.js"></script>
     <script src="scripts/controllers/routeController.js"></script>
-    <script src="scripts/controllers/serviceController.js"></script>
+    <script src="scripts/controllers/resourceController.js"></script>
     <script src="scripts/controllers/uiController.js"></script>
     <script src="scripts/controllers/docsController.js"></script>
     <script src="scripts/controllers/showRecordDialogController.js"></script>
     <script src="scripts/controllers/editRecordDialogController.js"></script>
-    <!-- services -->
-    <script src="scripts/services/recordServices.js"></script>
-    <!-- angular resource, needed for implementing client REST services -->
+    <!-- resource -->
+    <script src="scripts/resource/recordResource.js"></script>
+    <!-- angular resource, needed for implementing client REST resource -->
     <script src="scripts/vendor/angular-resource.js"></script>
     <script src="scripts/vendor/angular-route.js"></script>
     <!-- bootstrap ui -->
-    <script src="scripts/vendor/ui-bootstrap-0.12.0.js"></script>
-    <script src="scripts/vendor/ui-bootstrap-tpls-0.12.0.js"></script>
+    <script src="scripts/vendor/ui-bootstrap-tpls-0.14.3.min.js"></script>
 
 </body>
 </html>

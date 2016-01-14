@@ -1,4 +1,4 @@
-app.UICtrl = function ($scope, $modal) {
+app.UICtrl = function ($scope, $uibModal) {
 
     // hardcoded collection of test records
     $scope.records = [{
@@ -26,7 +26,7 @@ app.UICtrl = function ($scope, $modal) {
         temp.name = record.name;
         temp.description = record.description;
 
-        var modalInstance = $modal.open({
+        var modalInstance = $uibModal.open({
             templateUrl: 'views/dialogs/editRecord.html',
             controller: app.editRecordDialogCtrl,
             resolve: { record : function() { return temp; } }

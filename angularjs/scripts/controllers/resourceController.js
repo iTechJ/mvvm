@@ -1,4 +1,4 @@
-app.ServiceCtrl = function ($scope, Record, $modal) {
+app.ResourceCtrl = function ($scope, Record, $uibModal) {
 
     //gets the list of records
     $scope.records = Record.getAll();
@@ -8,7 +8,7 @@ app.ServiceCtrl = function ($scope, Record, $modal) {
         Record.get({id: id}, function(result) {
             $scope.chosen = result;
 
-            var modalInstance = $modal.open({
+            var modalInstance = $uibModal.open({
                 templateUrl: 'views/dialogs/showRecord.html',
                 controller: app.showRecordDialogCtrl,
                 resolve: { record : function() { return $scope.chosen; } }

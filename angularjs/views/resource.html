@@ -1,7 +1,7 @@
 <div class="container container-padding">
     <article>
 
-        <h1>Http сервисы</h1>
+        <h1>Http ресурсы</h1>
 
         <p>предоставляют нам возможность отправлять XHR запросы с данными и общаться с сервером приложений = источником данных.
             Давайте посмотрим пример:</p>
@@ -34,13 +34,18 @@
         <section>
             <h2>Давайте посмотрим, как это работает.</h2>
             <p>В первую очередь мы должны добавить angular-resource.js файл для нашего приложения</p>
+            <p>Не забудьте объявить наш angular-resource в приложении (смотрите <b>/scripts/app.js</b>):</p>
 
-            <p>Наш сервис определен в <b>scripts/services/recordServices.js</b>:</p>
+            <div class="code-example">
+                <div class="code">angular.module(&quot;angular-example&quot;, [<b class="red">&quot;ngResource&quot;</b>])</div>
+            </div>
+
+
+            <p>Наш ресурс определен в <b>scripts/resource/recordResource.js</b>:</p>
 
             <div class="code-example">
                 <div class="code">
-                    <p>angular.module(<b class="red">"recordServices"</b>, [<b class="red">&quot;ngResource&quot;</b>]).</p>
-                    <p class="one-indent">factory(&quot;<b class="red">Record</b>&quot;, function($resource) {</p>
+                    <p>app.factory(<b class="red">"Record"</b>, [<b class="red">'$resource'</b>, function(<b class="red">$resource</b>) {</p>
                     <p class="three-indent">return $resource(<b class="red">&quot;data/:id.json&quot;</b>, {}, {</p>
                     <p class="five-indent">
                         <b class="red">
@@ -52,9 +57,8 @@
                 </div>
             </div>
 
-            <p>Обратите внимание, что используется модуль API для регистрации пользовательского сервиса. Для этого мы
-                передали имя сервиса - <b class="red">&quot;Record&quot;</b> - в функцию фабрику.</p>
-            <p><b class="red">Record</b>-сервис зависит от $resource сервиса.</p>
+            <p>Для создания пользовательского ресурса мы передали имя сервиса - <b class="red">&quot;Record&quot;</b> - в функцию фабрику.</p>
+            <p><b class="red">Record</b>-ресурс зависит от $resource сервиса.</p>
             <p>Мы также определили метод <b class="red">getAll</b>, который вернет нам все записи.</p>
             <p>Так же существует ряд стандартных методов, которые доступны по умолчанию:</p>
 
@@ -74,14 +78,9 @@
 
         <section>
             <h2>Теперь</h2>
-            <p>у нас есть готовый сервис, и мы готовы использовать его.</p>
-            <p>Не забудьте объявить наш сервис-модуль в приложении (смотрите <b>/scripts/app.js</b>):</p>
+            <p>у нас есть готовый ресурс, и мы готовы использовать его.</p>
 
-            <div class="code-example">
-                <div class="code">angular.module(&quot;angular-example&quot;, [<b class="red">&quot;recordServices&quot;</b>])</div>
-            </div>
-
-            <p>Теперь вам достаточно просто указать имя сервиса в параметрах контроллера, и Angular заинжектит его для вас:</p>
+            <p>Вам достаточно просто указать имя ресурса в параметрах контроллера, и Angular заинжектит его для вас:</p>
 
             <div class="code-example">
                 <div class="code">
@@ -99,7 +98,7 @@
                 </div>
             </div>
 
-            <p>Здесь мы использовали наш сервис дважды: первый раз мы вызвали нами определенный метод <b class="red">getAll</b>
+            <p>Здесь мы использовали наш ресурс дважды: первый раз мы вызвали нами определенный метод <b class="red">getAll</b>
                 чтобы получить список всех записей, и затем мы использовали метод по умолчанию <b class="red">get</b>,
                 чтобы подучить детали каждой записи.</p>
 
